@@ -415,15 +415,14 @@ input[type="checkbox"]{accent-color:var(--accent-strong);width:15px;height:15px;
   <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><circle cx="12" cy="8" r="1" fill="currentColor" stroke="none"/></symbol>
   <symbol id="i-horos" viewBox="0 0 48 48">
     <defs>
-      <linearGradient id="hhSun" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd166"/><stop offset="1" stop-color="#ff6b4a"/></linearGradient>
-      <radialGradient id="hhGlow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#ffb347" stop-opacity=".55"/><stop offset="1" stop-color="#ffb347" stop-opacity="0"/></radialGradient>
+      <linearGradient id="hhRing" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffd166"/><stop offset=".35" stop-color="#ff4d9d"/><stop offset=".7" stop-color="#8b5cf6"/><stop offset="1" stop-color="#22d3ee"/></linearGradient>
+      <linearGradient id="hhH" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7ef3ff"/><stop offset="1" stop-color="#c4b5fd"/></linearGradient>
     </defs>
-    <circle cx="24" cy="26" r="12" fill="url(#hhGlow)" stroke="none"/>
-    <path d="M17.5 26a6.5 6.5 0 0 1 13 0Z" fill="url(#hhSun)" stroke="none"/>
-    <path d="M14 26h20" stroke="#fff" stroke-opacity=".92" stroke-width="2.2" stroke-linecap="round" fill="none"/>
-    <path d="M14 10v28M34 10v28" stroke="#fff" stroke-width="3.2" stroke-linecap="round" fill="none"/>
-    <g fill="#fff" stroke="none"><circle cx="14" cy="10" r="3.4"/><circle cx="14" cy="38" r="3.4"/><circle cx="34" cy="10" r="3.4"/><circle cx="34" cy="38" r="3.4"/></g>
-    <g fill="#ff8a4c" stroke="none"><circle cx="14" cy="10" r="1.4"/><circle cx="14" cy="38" r="1.4"/><circle cx="34" cy="10" r="1.4"/><circle cx="34" cy="38" r="1.4"/></g>
+    <ellipse cx="24" cy="24" rx="17.5" ry="6.5" fill="none" stroke="#fff" stroke-opacity=".45" stroke-width="1.3" transform="rotate(-24 24 24)"/>
+    <circle cx="24" cy="24" r="14" fill="none" stroke="url(#hhRing)" stroke-width="3.4"/>
+    <circle cx="24" cy="24" r="10.6" fill="#0b0e14" fill-opacity=".92"/>
+    <g fill="url(#hhH)"><rect x="19.1" y="18" width="2.6" height="12" rx="1.1"/><rect x="26.3" y="18" width="2.6" height="12" rx="1.1"/><rect x="19.1" y="22.7" width="9.8" height="2.6" rx="1.1"/></g>
+    <circle cx="37.4" cy="20.2" r="2.1" fill="#ffd166"/><circle cx="12.6" cy="30.5" r="1.7" fill="#22d3ee"/><circle cx="24" cy="10" r="1.5" fill="#ff4d9d"/>
   </symbol>
 </svg>
 
@@ -1508,18 +1507,20 @@ let bkVariant = 'tile', logoSeq = 0;
 function logoSVG(variant, size){
   const p = 'lg' + (logoSeq++);
   const mono = variant === 'mono';
-  const ink = mono ? '#6d5bff' : (variant === 'tile' ? '#ffffff' : '#6d5bff');
-  const inner = mono ? '#ffffff' : '#ff8a4c';
-  const sun = mono ? '#6d5bff' : `url(#${p}s)`;
-  const horizon = mono ? '#6d5bff' : (variant === 'tile' ? 'rgba(255,255,255,.92)' : '#6d5bff');
-  let defs = `<linearGradient id="${p}s" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd166"/><stop offset="1" stop-color="#ff6b4a"/></linearGradient>`;
-  let bg = '', glow = '';
-  if(variant === 'tile'){
-    defs += `<linearGradient id="${p}t" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#17123a"/><stop offset=".48" stop-color="#4b2fd6"/><stop offset="1" stop-color="#0fb9c9"/></linearGradient><radialGradient id="${p}g" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#ffb347" stop-opacity=".5"/><stop offset="1" stop-color="#ffb347" stop-opacity="0"/></radialGradient>`;
-    bg = `<rect width="48" height="48" rx="12" fill="url(#${p}t)"/>`;
-    glow = `<circle cx="24" cy="26" r="12" fill="url(#${p}g)" stroke="none"/>`;
-  }
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="${size}" height="${size}"><defs>${defs}</defs>${bg}${glow}<path d="M17.5 26a6.5 6.5 0 0 1 13 0Z" fill="${sun}" stroke="none"/><path d="M14 26h20" stroke="${horizon}" stroke-width="2.2" stroke-linecap="round" fill="none"/><path d="M14 10v28M34 10v28" stroke="${ink}" stroke-width="3.2" stroke-linecap="round" fill="none"/><g fill="${ink}" stroke="none"><circle cx="14" cy="10" r="3.4"/><circle cx="14" cy="38" r="3.4"/><circle cx="34" cy="10" r="3.4"/><circle cx="34" cy="38" r="3.4"/></g><g fill="${inner}" stroke="none"><circle cx="14" cy="10" r="1.4"/><circle cx="14" cy="38" r="1.4"/><circle cx="34" cy="10" r="1.4"/><circle cx="34" cy="38" r="1.4"/></g></svg>`;
+  const tile = variant === 'tile';
+  const ink = '#6d5bff';
+  const col = c => mono ? ink : c;
+  const g = id => mono ? ink : `url(#${p}${id})`;
+  const gl = mono ? '' : `filter="url(#${p}gl)"`;
+  const defs = `<linearGradient id="${p}r" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffd166"/><stop offset=".35" stop-color="#ff4d9d"/><stop offset=".7" stop-color="#8b5cf6"/><stop offset="1" stop-color="#22d3ee"/></linearGradient><linearGradient id="${p}c" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7ef3ff"/><stop offset="1" stop-color="#c4b5fd"/></linearGradient><linearGradient id="${p}t" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#120c2e"/><stop offset="1" stop-color="#080a12"/></linearGradient><radialGradient id="${p}a" cx=".3" cy=".3" r=".8"><stop offset="0" stop-color="#22d3ee" stop-opacity=".3"/><stop offset="1" stop-color="#22d3ee" stop-opacity="0"/></radialGradient><filter id="${p}gl" filterUnits="userSpaceOnUse" x="-120" y="-120" width="752" height="752"><feGaussianBlur stdDeviation="13" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>`;
+  const bg = tile ? `<rect width="512" height="512" rx="110" fill="url(#${p}t)"/><rect width="512" height="512" rx="110" fill="url(#${p}a)"/>` : '';
+  let dots = '';
+  [20, 95, 160, 235, 300].forEach((d, i) => {
+    const a = Math.PI / 180 * d, x = 256 + 150 * Math.cos(a), y = 256 + 150 * Math.sin(a);
+    dots += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${i % 2 ? 9 : 12}" fill="${col(i % 2 ? '#22d3ee' : '#ff8a4c')}" ${gl}/>`;
+  });
+  const core = mono ? 'none' : '#080a12';
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="${size}" height="${size}"><defs>${defs}</defs>${bg}<circle cx="256" cy="256" r="150" fill="none" stroke="${g('r')}" stroke-width="30" ${gl}/><ellipse cx="256" cy="256" rx="186" ry="70" fill="none" stroke="${col('#8b5cf6')}" stroke-width="5" opacity=".5" transform="rotate(-24 256 256)"/><circle cx="256" cy="256" r="112" fill="${core}"/>${dots}<g ${gl} fill="${g('c')}"><rect x="204" y="190" width="28" height="132" rx="8"/><rect x="280" y="190" width="28" height="132" rx="8"/><rect x="204" y="242" width="104" height="28" rx="8"/></g></svg>`;
 }
 function renderBrandPreview(){
   $('#bkPreview').innerHTML = `<div class="bk-mark">${logoSVG(bkVariant, 116)}</div><div class="bk-lock"><strong>HorosHub</strong><span>GithubOrganizer</span></div>`;
