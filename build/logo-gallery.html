@@ -1,0 +1,305 @@
+<style>
+  #hlab{--void:#080a12;--surf:#11142a;--surf2:#171b38;--line:#2a2f55;--ink:#f4f1ff;--mut:#a7abd4;--vio:#8b5cf6;--vio2:#6d5bff;--cyan:#22d3ee;--amber:#ffb347;--mag:#ff4d9d;--acid:#a3e635;
+    font-family:'Segoe UI',system-ui,-apple-system,sans-serif;color:var(--ink);background:
+      radial-gradient(1100px 600px at 12% -8%,rgba(109,91,255,.30),transparent 60%),
+      radial-gradient(900px 560px at 92% 4%,rgba(34,211,238,.20),transparent 58%),
+      radial-gradient(800px 700px at 60% 110%,rgba(255,77,157,.16),transparent 60%),
+      var(--void);
+    min-height:100%;padding:0 0 96px;position:relative;overflow-x:hidden}
+  #hlab *{box-sizing:border-box}
+  #hlab::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.05;z-index:0;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E")}
+  #hlab .wrap{position:relative;z-index:1;max-width:1320px;margin:0 auto;padding:26px 22px 0}
+  #hlab header.hd{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:6px}
+  #hlab .hd .mk{width:52px;height:52px;flex:0 0 auto;filter:drop-shadow(0 6px 18px rgba(109,91,255,.5))}
+  #hlab h1{font-size:26px;margin:0;letter-spacing:.2px;font-weight:800}
+  #hlab h1 span{background:linear-gradient(90deg,var(--cyan),var(--vio),var(--mag));-webkit-background-clip:text;background-clip:text;color:transparent}
+  #hlab .sub{color:var(--mut);font-size:13.5px;margin:2px 0 0}
+  #hlab .pill{margin-left:auto;display:flex;gap:8px;align-items:center;background:rgba(255,255,255,.05);border:1px solid var(--line);padding:7px 13px;border-radius:999px;font-size:12px;color:var(--mut)}
+  #hlab .pill b{color:var(--cyan)}
+  /* control rail */
+  #hlab .rail{position:sticky;top:0;z-index:20;margin:18px 0 22px;padding:14px 16px;border-radius:18px;
+    background:linear-gradient(180deg,rgba(23,27,56,.96),rgba(17,20,42,.92));border:1px solid var(--line);
+    box-shadow:0 18px 44px rgba(0,0,0,.45);backdrop-filter:blur(10px);display:flex;gap:18px;flex-wrap:wrap;align-items:flex-end}
+  #hlab .ctl{display:flex;flex-direction:column;gap:6px;min-width:120px}
+  #hlab .ctl label{font-size:11px;text-transform:uppercase;letter-spacing:.09em;color:var(--mut);font-weight:700}
+  #hlab .ctl .val{color:var(--cyan);font-variant-numeric:tabular-nums}
+  #hlab input[type=range]{-webkit-appearance:none;appearance:none;height:6px;border-radius:99px;background:linear-gradient(90deg,var(--vio2),var(--cyan));outline:none;width:150px}
+  #hlab input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:17px;height:17px;border-radius:50%;background:#fff;border:3px solid var(--vio2);box-shadow:0 2px 8px rgba(0,0,0,.5);cursor:pointer}
+  #hlab select,#hlab input[type=color]{background:var(--surf2);color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:7px 9px;font-size:13px;font-family:inherit}
+  #hlab input[type=color]{padding:2px;height:36px;width:52px;cursor:pointer}
+  #hlab .tg{display:flex;align-items:center;gap:8px;cursor:pointer;user-select:none;font-size:13px;color:var(--ink);background:var(--surf2);border:1px solid var(--line);padding:8px 11px;border-radius:10px}
+  #hlab .tg input{accent-color:var(--vio2);width:16px;height:16px;cursor:pointer}
+  #hlab .btn{cursor:pointer;border:1px solid var(--line);background:var(--surf2);color:var(--ink);padding:9px 14px;border-radius:11px;font-size:13px;font-weight:600;font-family:inherit;transition:.16s;display:inline-flex;align-items:center;gap:7px}
+  #hlab .btn:hover{border-color:var(--vio);transform:translateY(-1px);box-shadow:0 8px 20px rgba(109,91,255,.28)}
+  #hlab .btn.pri{background:linear-gradient(90deg,var(--vio2),var(--cyan));border:none;color:#08111f}
+  #hlab .btn.pri:hover{box-shadow:0 10px 26px rgba(34,211,238,.4)}
+  #hlab .rail .spacer{flex:1 1 auto}
+  /* gallery */
+  #hlab .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(380px,1fr));gap:20px}
+  #hlab .card{border-radius:22px;border:1px solid var(--line);background:linear-gradient(180deg,rgba(23,27,56,.7),rgba(13,16,34,.7));overflow:hidden;transition:.2s;position:relative}
+  #hlab .card:hover{border-color:rgba(139,92,246,.6);transform:translateY(-3px);box-shadow:0 22px 50px rgba(0,0,0,.5)}
+  #hlab .card.sel{border-color:var(--cyan);box-shadow:0 0 0 2px rgba(34,211,238,.5),0 22px 50px rgba(0,0,0,.5)}
+  #hlab .card .num{position:absolute;top:14px;left:16px;z-index:3;width:30px;height:30px;border-radius:9px;display:grid;place-items:center;font-weight:800;font-size:14px;background:rgba(8,10,18,.7);border:1px solid var(--line);color:var(--cyan)}
+  #hlab .stage{position:relative;padding:22px;display:flex;gap:16px;align-items:center;justify-content:center;min-height:230px;border-bottom:1px solid var(--line)}
+  #hlab .stage.bg-dark{background:radial-gradient(600px 300px at 50% 0%,#141834,#080a12)}
+  #hlab .stage.bg-light{background:linear-gradient(180deg,#f6f3ec,#e7e2d6)}
+  #hlab .stage.bg-aurora{background:linear-gradient(130deg,#2a1a5e,#0e3a52 45%,#4a1740)}
+  #hlab .stage.bg-check{background-color:#1a1d33;background-image:linear-gradient(45deg,#22263f 25%,transparent 25%),linear-gradient(-45deg,#22263f 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#22263f 75%),linear-gradient(-45deg,transparent 75%,#22263f 75%);background-size:22px 22px;background-position:0 0,0 11px,11px -11px,-11px 0}
+  #hlab .big{position:relative;line-height:0;filter:drop-shadow(0 14px 30px rgba(0,0,0,.45))}
+  #hlab .big .gridov{position:absolute;inset:0;pointer-events:none;opacity:.5}
+  #hlab .side{display:flex;flex-direction:column;gap:12px;align-items:center}
+  #hlab .mini{display:flex;flex-direction:column;align-items:center;gap:5px}
+  #hlab .mini small{font-size:10px;color:var(--mut);letter-spacing:.05em}
+  #hlab .stage.bg-light .mini small{color:#6a6355}
+  #hlab .ic{border-radius:22%;overflow:hidden;line-height:0;box-shadow:0 6px 16px rgba(0,0,0,.4)}
+  #hlab .meta{padding:16px 18px 18px}
+  #hlab .meta h3{margin:0 0 4px;font-size:18px;font-weight:800;display:flex;align-items:center;gap:9px}
+  #hlab .meta h3 .dot{width:9px;height:9px;border-radius:50%;background:linear-gradient(90deg,var(--cyan),var(--vio))}
+  #hlab .meta p{margin:0 0 14px;color:var(--mut);font-size:13px;line-height:1.5}
+  #hlab .acts{display:flex;gap:8px;flex-wrap:wrap}
+  #hlab .acts .btn{padding:8px 12px;font-size:12.5px}
+  #hlab .btn.pick{background:linear-gradient(90deg,var(--vio2),var(--mag));border:none;color:#fff}
+  #hlab .card.sel .btn.pick{background:linear-gradient(90deg,var(--cyan),var(--acid));color:#08111f}
+  /* selection bar */
+  #hlab .selbar{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);z-index:40;display:flex;align-items:center;gap:14px;
+    padding:12px 18px;border-radius:16px;background:rgba(17,20,42,.96);border:1px solid var(--line);box-shadow:0 18px 44px rgba(0,0,0,.55);backdrop-filter:blur(10px);max-width:92vw}
+  #hlab .selbar .txt{font-size:13.5px;color:var(--mut)}
+  #hlab .selbar .txt b{color:var(--ink)}
+  #hlab .selbar .sw{width:34px;height:34px;border-radius:9px;overflow:hidden;line-height:0;flex:0 0 auto}
+  #hlab .toast{position:fixed;top:18px;left:50%;transform:translateX(-50%) translateY(-24px);z-index:60;background:linear-gradient(90deg,var(--vio2),var(--cyan));color:#08111f;font-weight:700;font-size:13px;padding:11px 18px;border-radius:12px;opacity:0;transition:.28s;pointer-events:none;box-shadow:0 12px 30px rgba(0,0,0,.4)}
+  #hlab .toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+  #hlab ::-webkit-scrollbar{width:11px;height:11px}
+  #hlab ::-webkit-scrollbar-track{background:#0c0f1e}
+  #hlab ::-webkit-scrollbar-thumb{background:linear-gradient(180deg,var(--vio2),var(--cyan));border-radius:99px;border:2px solid #0c0f1e}
+  #hlab ::-webkit-scrollbar-thumb:hover{background:linear-gradient(180deg,var(--vio),var(--mag))}
+  @media(max-width:640px){#hlab .rail{gap:12px}#hlab input[type=range]{width:120px}#hlab .grid{grid-template-columns:1fr}}
+</style>
+
+<div id="hlab">
+  <div class="wrap">
+    <header class="hd">
+      <span class="mk" id="hdMark"></span>
+      <div>
+        <h1>HorosHub · <span>GithubOrganizer</span></h1>
+        <p class="sub">5 neue Logo-Entwürfe — live anpassen, vergleichen, exportieren und deinen Favoriten wählen.</p>
+      </div>
+      <div class="pill">Tipp: Tasten <b>1–5</b> wählen · <b>SVG/PNG</b> exportierbar</div>
+    </header>
+
+    <div class="rail" id="rail">
+      <div class="ctl"><label>Größe <span class="val" id="vSize">180</span></label><input type="range" id="cSize" min="96" max="280" step="4" value="180"></div>
+      <div class="ctl"><label>Icon-Radius <span class="val" id="vRx">110</span></label><input type="range" id="cRx" min="0" max="170" step="2" value="110"></div>
+      <div class="ctl"><label>Hintergrund</label><select id="cBg"><option value="dark">Dunkel</option><option value="light">Hell</option><option value="aurora">Aurora</option><option value="check">Schach</option></select></div>
+      <div class="ctl"><label>Akzentton</label><input type="color" id="cAccent" value="#ff8a4c"></div>
+      <div class="ctl"><label>Export</label><select id="cExp"><option>256</option><option selected>512</option><option>1024</option></select></div>
+      <label class="tg"><input type="checkbox" id="cGlow" checked> Glow</label>
+      <label class="tg"><input type="checkbox" id="cMono"> Monochrom</label>
+      <label class="tg"><input type="checkbox" id="cGrid"> Raster</label>
+      <div class="spacer"></div>
+      <button class="btn" id="bRand">🎲 Akzent würfeln</button>
+      <button class="btn" id="bReset">↺ Reset</button>
+      <button class="btn" id="bAll">⬇ Alle PNG</button>
+    </div>
+
+    <div class="grid" id="grid"></div>
+  </div>
+
+  <div class="selbar" id="selbar">
+    <span class="sw" id="selSw"></span>
+    <span class="txt" id="selTxt">Noch nichts gewählt — klicke <b>Auswählen</b> oder drücke <b>1–5</b>.</span>
+    <button class="btn pri" id="bConfirm" disabled>✓ Auswahl bestätigen</button>
+  </div>
+  <div class="toast" id="toast"></div>
+</div>
+
+<script>
+(function(){
+  const root=document.getElementById('hlab');
+  const $=s=>root.querySelector(s);
+  const INK='#6d5bff';
+  let uidc=0, chosen=null;
+  const o={size:180,rx:110,bg:'dark',glow:true,mono:false,grid:false,exp:512,accent:'#ff8a4c'};
+
+  /* ---------- helpers ---------- */
+  function defsCommon(u,accent,tileStops){
+    return `<linearGradient id="${u}t" x1="0" y1="0" x2="1" y2="1">${tileStops}</linearGradient>
+    <linearGradient id="${u}s" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd166"/><stop offset="1" stop-color="${accent}"/></linearGradient>
+    <linearGradient id="${u}c" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#22d3ee"/><stop offset="1" stop-color="#8b5cf6"/></linearGradient>
+    <filter id="${u}gl" filterUnits="userSpaceOnUse" x="-120" y="-120" width="752" height="752"><feGaussianBlur stdDeviation="13" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="${u}soft" filterUnits="userSpaceOnUse" x="-120" y="-120" width="752" height="752"><feGaussianBlur stdDeviation="26"/></filter>`;
+  }
+  function wrap(u,inner,px){return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="${px}" height="${px}">${inner}</svg>`;}
+  function gridOverlay(px){return `<svg class="gridov" width="${px}" height="${px}" viewBox="0 0 512 512"><g stroke="#22d3ee" stroke-width="1" opacity=".55"><path d="M256 0V512M0 256H512"/><path d="M128 0V512M384 0V512M0 128H512M0 384H512" opacity=".4"/><circle cx="256" cy="256" r="170" fill="none" opacity=".5"/><circle cx="256" cy="256" r="110" fill="none" opacity=".35"/></g></svg>`;}
+
+  /* ---------- 5 concepts ---------- */
+  // A) Orbit Horizon
+  function A(u){
+    const m=o.mono, col=c=>m?INK:c, g=id=>m?INK:`url(#${u}${id})`, gl=m?'':`filter="url(#${u}gl)"`;
+    const tile=m?'':`<rect width="512" height="512" rx="${o.rx}" fill="${g('t')}"/>`;
+    return `<defs>${defsCommon(u,o.accent,'<stop offset="0" stop-color="#1b1250"/><stop offset=".5" stop-color="#4b2fd6"/><stop offset="1" stop-color="#0fb9c9"/>')}</defs>
+    ${tile}
+    ${m?'':`<circle cx="256" cy="300" r="150" fill="${o.accent}" opacity=".22" ${m?'':`filter="url(#${u}soft)"`}/>`}
+    <g stroke="${col('#f4f1ff')}" opacity="${m?1:.22}" stroke-width="14" stroke-linecap="round"><path d="M150 120V392M362 120V392"/></g>
+    <ellipse cx="256" cy="286" rx="158" ry="62" fill="none" stroke="${g('c')}" stroke-width="7" opacity=".95" transform="rotate(-18 256 286)"/>
+    <path d="M176 300a80 80 0 0 1 160 0Z" fill="${g('s')}" ${gl}/>
+    <path d="M96 300H416" stroke="${col('#f4f1ff')}" stroke-width="11" stroke-linecap="round" opacity="${m?1:.92}"/>
+    <g ${gl}><circle cx="378" cy="238" r="17" fill="${col('#22d3ee')}"/><circle cx="378" cy="238" r="6.5" fill="${col('#f4f1ff')}"/></g>
+    <circle cx="140" cy="252" r="6" fill="${col('#ffd166')}"/><circle cx="404" cy="330" r="5" fill="${col('#ff4d9d')}"/>`;
+  }
+  // B) Constellation H
+  function B(u){
+    const m=o.mono, col=c=>m?INK:c, g=id=>m?INK:`url(#${u}${id})`, gl=m?'':`filter="url(#${u}gl)"`;
+    const tile=m?'':`<rect width="512" height="512" rx="${o.rx}" fill="${g('t')}"/>`;
+    const L=[150,150,150],R=[362,362,362],Y=[120,256,392];
+    let nodes='';for(let i=0;i<3;i++){nodes+=`<g ${gl}><circle cx="${L[i]}" cy="${Y[i]}" r="17" fill="${col(i===1?'#22d3ee':'#8b5cf6')}"/><circle cx="${L[i]}" cy="${Y[i]}" r="6.5" fill="${col('#f4f1ff')}"/></g><g ${gl}><circle cx="${R[i]}" cy="${Y[i]}" r="17" fill="${col(i===1?'#22d3ee':'#8b5cf6')}"/><circle cx="${R[i]}" cy="${Y[i]}" r="6.5" fill="${col('#f4f1ff')}"/></g>`;}
+    return `<defs>${defsCommon(u,o.accent,'<stop offset="0" stop-color="#241452"/><stop offset=".55" stop-color="#141033"/><stop offset="1" stop-color="#0a0a1c"/>')}
+    <radialGradient id="${u}n" cx=".5" cy=".42" r=".6"><stop offset="0" stop-color="#ff4d9d" stop-opacity=".4"/><stop offset="1" stop-color="#ff4d9d" stop-opacity="0"/></radialGradient></defs>
+    ${tile}${m?'':`<rect width="512" height="512" rx="${o.rx}" fill="url(#${u}n)"/>`}
+    <g stroke="${g('c')}" stroke-width="8" stroke-linecap="round" fill="none" opacity=".95"><path d="M150 120V392M362 120V392M150 256H362"/></g>
+    <g stroke="${col('#8b5cf6')}" stroke-width="4" fill="none" opacity=".5"><path d="M150 120Q256 180 362 256M362 120Q256 180 150 256M150 392Q256 330 362 256"/></g>
+    ${nodes}
+    <g ${gl}><path d="M256 214l13 34 36 4-27 24 8 36-30-19-30 19 8-36-27-24 36-4Z" fill="${g('s')}"/></g>
+    <g fill="${col('#f4f1ff')}" opacity=".7"><circle cx="100" cy="100" r="3"/><circle cx="420" cy="110" r="2.5"/><circle cx="90" cy="410" r="2.5"/><circle cx="430" cy="400" r="3"/><circle cx="256" cy="80" r="2"/></g>`;
+  }
+  // C) Hex Hub
+  function C(u){
+    const m=o.mono, col=c=>m?INK:c, g=id=>m?INK:`url(#${u}${id})`, gl=m?'':`filter="url(#${u}gl)"`;
+    const tile=m?'':`<rect width="512" height="512" rx="${o.rx}" fill="${g('t')}"/>`;
+    const hex=(r)=>{let p=[];for(let i=0;i<6;i++){const a=Math.PI/180*(60*i-90);p.push((256+r*Math.cos(a)).toFixed(1)+','+(256+r*Math.sin(a)).toFixed(1));}return p.join(' ');};
+    let traces='';for(let i=0;i<6;i++){const a=Math.PI/180*(60*i-90);const x1=256+170*Math.cos(a),y1=256+170*Math.sin(a),x2=256+206*Math.cos(a),y2=256+206*Math.sin(a);traces+=`<path d="M${x1.toFixed(1)} ${y1.toFixed(1)}L${x2.toFixed(1)} ${y2.toFixed(1)}" stroke="${col('#22d3ee')}" stroke-width="5" opacity=".8"/><circle cx="${x2.toFixed(1)}" cy="${y2.toFixed(1)}" r="9" fill="${col('#22d3ee')}"/>`;}
+    return `<defs>${defsCommon(u,o.accent,'<stop offset="0" stop-color="#141033"/><stop offset="1" stop-color="#2a1a5e"/>')}</defs>
+    ${tile}
+    ${m?'':`<circle cx="256" cy="256" r="120" fill="${o.accent}" opacity=".2" filter="url(#${u}soft)"/>`}
+    <polygon points="${hex(170)}" fill="${m?'none':'rgba(8,10,18,.55)'}" stroke="${g('c')}" stroke-width="13" stroke-linejoin="round"/>
+    <polygon points="${hex(122)}" fill="none" stroke="${col('#8b5cf6')}" stroke-width="3" opacity=".45"/>
+    ${traces}
+    <g ${gl} fill="${g('s')}"><rect x="196" y="176" width="27" height="160" rx="8"/><rect x="289" y="176" width="27" height="160" rx="8"/><rect x="196" y="243" width="120" height="26" rx="8"/></g>`;
+  }
+  // D) Prism Sunrise
+  function D(u){
+    const m=o.mono, col=c=>m?INK:c, g=id=>m?INK:`url(#${u}${id})`, gl=m?'':`filter="url(#${u}gl)"`;
+    const tile=m?'':`<rect width="512" height="512" rx="${o.rx}" fill="${g('t')}"/>`;
+    const bands=[['#8b5cf6',176],['#22d3ee',228],[o.accent,280],['#ff4d9d',332]];
+    let rays='';bands.forEach(b=>{rays+=`<path d="M300 256L478 ${b[1]}" stroke="${col(b[0])}" stroke-width="15" stroke-linecap="round" ${gl}/>`;});
+    return `<defs>${defsCommon(u,o.accent,'<stop offset="0" stop-color="#0a0a1c"/><stop offset="1" stop-color="#17123a"/>')}
+    <linearGradient id="${u}p" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f4f1ff" stop-opacity=".22"/><stop offset="1" stop-color="#22d3ee" stop-opacity=".16"/></linearGradient></defs>
+    ${tile}
+    ${m?'':`<g stroke="#2a2f55" stroke-width="1.5" opacity=".5"><path d="M0 128H512M0 256H512M0 384H512M128 0V512M256 0V512M384 0V512"/></g>`}
+    <path d="M40 256H214" stroke="${col('#f4f1ff')}" stroke-width="12" stroke-linecap="round" ${gl}/>
+    <circle cx="44" cy="256" r="13" fill="${g('s')}" ${gl}/>
+    ${rays}
+    <polygon points="256,116 378,360 134,360" fill="${m?'none':`url(#${u}p)`}" stroke="${col('#f4f1ff')}" stroke-width="7" stroke-linejoin="round" opacity="${m?1:.9}"/>
+    <polygon points="256,150 348,344 164,344" fill="none" stroke="${col('#22d3ee')}" stroke-width="3" opacity=".5"/>`;
+  }
+  // E) Nebula Ring
+  function E(u){
+    const m=o.mono, col=c=>m?INK:c, g=id=>m?INK:`url(#${u}${id})`, gl=m?'':`filter="url(#${u}gl)"`;
+    const tile=m?'':`<rect width="512" height="512" rx="${o.rx}" fill="${g('t')}"/>`;
+    let dots='';[20,95,160,235,300].forEach((d,i)=>{const a=Math.PI/180*d;const x=256+150*Math.cos(a),y=256+150*Math.sin(a);dots+=`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${i%2?9:12}" fill="${col(i%2?'#22d3ee':o.accent)}" ${gl}/>`;});
+    return `<defs>${defsCommon(u,o.accent,'<stop offset="0" stop-color="#120c2e"/><stop offset="1" stop-color="#080a12"/>')}
+    <linearGradient id="${u}r" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffd166"/><stop offset=".35" stop-color="#ff4d9d"/><stop offset=".7" stop-color="#8b5cf6"/><stop offset="1" stop-color="#22d3ee"/></linearGradient>
+    <radialGradient id="${u}a" cx=".3" cy=".3" r=".8"><stop offset="0" stop-color="#22d3ee" stop-opacity=".3"/><stop offset="1" stop-color="#22d3ee" stop-opacity="0"/></radialGradient></defs>
+    ${tile}${m?'':`<rect width="512" height="512" rx="${o.rx}" fill="url(#${u}a)"/>`}
+    <circle cx="256" cy="256" r="150" fill="none" stroke="${m?INK:`url(#${u}r)`}" stroke-width="30" ${gl}/>
+    <ellipse cx="256" cy="256" rx="186" ry="70" fill="none" stroke="${col('#8b5cf6')}" stroke-width="5" opacity=".5" transform="rotate(-24 256 256)"/>
+    <circle cx="256" cy="256" r="112" fill="${m?'none':'#080a12'}"/>
+    ${dots}
+    <g ${gl} fill="${g('c')}"><rect x="204" y="190" width="28" height="132" rx="8"/><rect x="280" y="190" width="28" height="132" rx="8"/><rect x="204" y="242" width="104" height="28" rx="8"/></g>`;
+  }
+
+  const concepts=[
+    {id:'orbit',name:'Orbit Horizon',desc:'Aufgehende Sonne über dem Horizont, umlaufen von einem Orbit-Ring mit Commit-Satellit. Die zwei Lichtbalken deuten das „H" an. Warmes Amber auf Violett→Cyan.',fn:A},
+    {id:'constel',name:'Constellation H',desc:'Das „H" als Sternbild aus Git-Knoten: verbunden durch Branch-Linien, ein glühender Amber-Stern im Zentrum. Deep-Space-Nebel mit Magenta-Schimmer.',fn:B},
+    {id:'hex',name:'Hex Hub',desc:'Sechseckiger Hub-Knoten mit Circuit-Traces zu sechs Nodes. Im Kern ein negatives „H" aus Sonnenaufgangs-Verlauf — GitHub-Geometrie, neu gedacht.',fn:C},
+    {id:'prism',name:'Prism Sunrise',desc:'Ein Glasprisma bricht einen Lichtstrahl in vier Spektral-Bänder (Violett, Cyan, Amber, Magenta). Glasig, geschichtet, mit feinem Raster — Optik trifft Marke.',fn:D},
+    {id:'nebula',name:'Nebula Ring',desc:'Akkretionsring / Event-Horizon in Aurora-Farben mit orbitierenden Commit-Punkten. Im dunklen Kern ein leuchtendes „H"-Monogramm. Kosmisch, bold.',fn:E}
+  ];
+
+  /* ---------- render ---------- */
+  function logoMarkup(c,u){return c.fn(u);}
+  function render(){
+    const grid=$('#grid');grid.innerHTML='';
+    concepts.forEach((c,i)=>{
+      const u='u'+(uidc++)+'_';
+      const inner=logoMarkup(c,u);
+      const card=document.createElement('div');card.className='card'+(chosen===i?' sel':'');card.dataset.i=i;
+      const px=o.size;
+      card.innerHTML=`
+        <span class="num">${i+1}</span>
+        <div class="stage bg-${o.bg}">
+          <div class="big" style="width:${px}px;height:${px}px">${wrap(u,inner,px)}${o.grid?gridOverlay(px):''}</div>
+          <div class="side">
+            <div class="mini"><span class="ic" style="width:64px;height:64px">${wrap('i'+(uidc++)+'_',inner,64)}</span><small>App-Icon</small></div>
+            <div class="mini"><span style="width:32px;height:32px;line-height:0">${wrap('f'+(uidc++)+'_',inner,32)}</span><small>Favicon</small></div>
+          </div>
+        </div>
+        <div class="meta">
+          <h3><span class="dot"></span>${c.name}</h3>
+          <p>${c.desc}</p>
+          <div class="acts">
+            <button class="btn pick" data-act="pick">${chosen===i?'✓ Gewählt':'Auswählen'}</button>
+            <button class="btn" data-act="svg">SVG</button>
+            <button class="btn" data-act="png">PNG</button>
+            <button class="btn" data-act="copy">Copy SVG</button>
+          </div>
+        </div>`;
+      grid.appendChild(card);
+    });
+    $('#hdMark').innerHTML=wrap('hd'+(uidc++)+'_',A('hd'+(uidc++)+'_'),52);
+    updateSel();
+  }
+  function updateSel(){
+    const bar=$('#selbar'),sw=$('#selSw'),txt=$('#selTxt'),cf=$('#bConfirm');
+    if(chosen==null){sw.innerHTML='';txt.innerHTML='Noch nichts gewählt — klicke <b>Auswählen</b> oder drücke <b>1–5</b>.';cf.disabled=true;return;}
+    const c=concepts[chosen];sw.innerHTML=wrap('sb'+(uidc++)+'_',c.fn('sb'+(uidc++)+'_'),34);
+    txt.innerHTML=`Deine Wahl: <b>${chosen+1} · ${c.name}</b>`;cf.disabled=false;
+  }
+  function toast(msg){const t=$('#toast');t.textContent=msg;t.classList.add('on');clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove('on'),1900);}
+
+  /* ---------- export ---------- */
+  function curSVG(c,px){const u='x'+(uidc++)+'_';return wrap(u,c.fn(u),px);}
+  function download(name,blob){const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),4000);}
+  function exportPNG(c,px){
+    const svg=curSVG(c,px);const url=URL.createObjectURL(new Blob([svg],{type:'image/svg+xml'}));const img=new Image();
+    img.onload=()=>{const cv=document.createElement('canvas');cv.width=px;cv.height=px;cv.getContext('2d').drawImage(img,0,0,px,px);URL.revokeObjectURL(url);cv.toBlob(b=>{download('horoshub-'+c.id+'-'+px+'.png',b);toast('PNG exportiert: '+c.name);},'image/png');};
+    img.onerror=()=>{URL.revokeObjectURL(url);toast('PNG-Export fehlgeschlagen');};img.src=url;
+  }
+  function copyText(t){
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(()=>toast('SVG kopiert')).catch(()=>fallbackCopy(t));}
+    else fallbackCopy(t);
+  }
+  function fallbackCopy(t){const ta=document.createElement('textarea');ta.value=t;ta.style.position='fixed';ta.style.opacity='0';document.body.append(ta);ta.select();try{document.execCommand('copy');toast('SVG kopiert');}catch(e){toast('Kopieren nicht möglich');}ta.remove();}
+
+  /* ---------- events ---------- */
+  $('#grid').addEventListener('click',e=>{
+    const btn=e.target.closest('button[data-act]');if(!btn)return;
+    const card=e.target.closest('.card');const i=+card.dataset.i;const c=concepts[i];const act=btn.dataset.act;
+    if(act==='pick'){chosen=i;render();toast('Gewählt: '+c.name);}
+    else if(act==='svg'){download('horoshub-'+c.id+'.svg',new Blob([curSVG(c,512)],{type:'image/svg+xml'}));toast('SVG heruntergeladen');}
+    else if(act==='png'){exportPNG(c,o.exp);}
+    else if(act==='copy'){copyText(curSVG(c,512));}
+  });
+  function bind(id,key,fmt,after){const el=$(id);el.addEventListener('input',()=>{o[key]=el.type==='checkbox'?el.checked:(el.type==='range'||el.tagName==='SELECT'?+el.value||el.value:el.value);if(fmt)fmt();render();if(after)after();});}
+  $('#cSize').addEventListener('input',e=>{o.size=+e.target.value;$('#vSize').textContent=o.size;render();});
+  $('#cRx').addEventListener('input',e=>{o.rx=+e.target.value;$('#vRx').textContent=o.rx;render();});
+  $('#cBg').addEventListener('change',e=>{o.bg=e.target.value;render();});
+  $('#cAccent').addEventListener('input',e=>{o.accent=e.target.value;render();});
+  $('#cExp').addEventListener('change',e=>{o.exp=+e.target.value;});
+  $('#cGlow').addEventListener('change',e=>{o.glow=e.target.checked;render();});
+  $('#cMono').addEventListener('change',e=>{o.mono=e.target.checked;render();});
+  $('#cGrid').addEventListener('change',e=>{o.grid=e.target.checked;render();});
+  $('#bReset').addEventListener('click',()=>{Object.assign(o,{size:180,rx:110,bg:'dark',glow:true,mono:false,grid:false,exp:512,accent:'#ff8a4c'});
+    $('#cSize').value=180;$('#vSize').textContent=180;$('#cRx').value=110;$('#vRx').textContent=110;$('#cBg').value='dark';$('#cAccent').value='#ff8a4c';$('#cExp').value='512';$('#cGlow').checked=true;$('#cMono').checked=false;$('#cGrid').checked=false;render();toast('Zurückgesetzt');});
+  $('#bRand').addEventListener('click',()=>{const h=Math.floor(Math.random()*360);const col=`hsl(${h} 90% 60%)`;
+    // convert hsl to hex for input
+    const tmp=document.createElement('canvas').getContext('2d');tmp.fillStyle=col;const hex=tmp.fillStyle;
+    o.accent=hex;$('#cAccent').value=hex;render();toast('Akzent: '+hex);});
+  $('#bAll').addEventListener('click',()=>{concepts.forEach((c,i)=>setTimeout(()=>exportPNG(c,o.exp),i*350));toast('Exportiere alle 5 …');});
+  $('#bConfirm').addEventListener('click',()=>{if(chosen==null)return;const c=concepts[chosen];toast('Bestätigt: '+c.name+' — sag mir im Chat Bescheid!');
+    $('#selTxt').innerHTML=`✅ <b>${c.name}</b> bestätigt. Nenne mir die Nummer im Chat, dann baue ich sie als App-Icon ein.`;});
+  document.addEventListener('keydown',e=>{if(e.target.matches('input,select,textarea'))return;const n=+e.key;if(n>=1&&n<=5){chosen=n-1;render();toast('Gewählt: '+concepts[chosen].name);}});
+
+  render();
+})();
+</script>
