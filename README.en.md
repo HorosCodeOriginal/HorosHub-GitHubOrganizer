@@ -2,7 +2,7 @@
   <img src="build/icon.png" width="120" alt="HorosHub Logo" />
 </p>
 
-<h1 align="center">HorosHub</h1>
+<h1 align="center">HorosHub - GithubOrganizer</h1>
 
 <p align="center">
   <b>The GitHub command center for your entire account — as a native desktop app.</b><br/>
@@ -85,9 +85,9 @@ stay **on your PC**.
 
 ## Installation (for users)
 
-1. Download **`release/HorosHub-Setup-1.0.0.exe`** (from this repo's `release/` folder).
+1. Download **`HorosHub-GithubOrganizer-Setup-1.0.0.exe`** from the [GitHub Releases](https://github.com/HorosCodeOriginal/horoshub/releases/latest) (alternatively from this repo's `release/` folder).
 2. Double-click → install wizard (per-user, target folder selectable).
-3. Launch **HorosHub** from the desktop or start-menu shortcut.
+3. Launch **HorosHub - GithubOrganizer** from the desktop or start-menu shortcut.
 4. Connect your GitHub account in the onboarding:
    - **Full access (token):** for private repos + write access. Recommended scopes:
      `repo`, `user`, `notifications`, `read:org`, `workflow` (a fine-grained token with
@@ -118,7 +118,7 @@ npm start
 # Backend + browser only (fallback)
 npm run server          # or start-browser.bat
 
-# Build the Windows installer -> release/HorosHub-Setup-1.0.0.exe
+# Build the Windows installer -> release/HorosHub-GithubOrganizer-Setup-1.0.0.exe
 npm run dist
 ```
 
@@ -177,7 +177,7 @@ release/            Finished Windows installer (NSIS)
 ├── desktop/ (main.js, preload.js)
 ├── build/ (icon.ico, icon.png, icon-512.png, make-icons.js, make-shortcuts.ps1, capture-screens.js, …)
 ├── screenshots/ (01–07)
-├── release/HorosHub-Setup-1.0.0.exe
+├── release/HorosHub-GithubOrganizer-Setup-1.0.0.exe
 ├── README.md (German) · README.en.md (English) · LICENSE · .gitignore
 ```
 

@@ -65,7 +65,7 @@ function createWindow() {
     height: st.height || 900,
     minWidth: 1024, minHeight: 700,
     backgroundColor: '#0b0e14',
-    title: 'HorosHub',
+    title: 'HorosHub - GithubOrganizer',
     icon: ICON,
     show: false,
     autoHideMenuBar: false,
@@ -132,9 +132,9 @@ function buildMenu() {
       label: 'Hilfe',
       submenu: [
         { label: 'GitHub-Profil öffnen', click: () => shell.openExternal('https://github.com/HorosCodeOriginal') },
-        { label: 'Über HorosHub', click: () => {
+        { label: 'Über HorosHub - GithubOrganizer', click: () => {
           dialog.showMessageBox(win, {
-            type: 'info', title: 'Über HorosHub', message: 'HorosHub 1.0.0',
+            type: 'info', title: 'Über HorosHub - GithubOrganizer', message: 'HorosHub - GithubOrganizer 1.0.0',
             detail: 'GitHub-Kommandozentrale für HorosCodeOriginal.\nLokales Backend auf 127.0.0.1:4676 · Electron ' + process.versions.electron + ' · Node ' + process.versions.node,
             buttons: ['OK'],
           });
@@ -147,9 +147,9 @@ function buildMenu() {
 
 function buildTray() {
   tray = new Tray(ICON);
-  tray.setToolTip('HorosHub — GitHub-Kommandozentrale');
+  tray.setToolTip('HorosHub - GithubOrganizer');
   tray.setContextMenu(Menu.buildFromTemplate([
-    { label: 'HorosHub öffnen', click: () => { if (win) { win.show(); win.focus(); } } },
+    { label: 'HorosHub - GithubOrganizer öffnen', click: () => { if (win) { win.show(); win.focus(); } } },
     { type: 'separator' },
     { label: 'Beenden', click: () => { quitting = true; app.quit(); } },
   ]));
@@ -170,11 +170,11 @@ if (!gotLock) { app.quit(); }
 else {
   app.on('second-instance', () => { if (win) { if (win.isMinimized()) win.restore(); win.show(); win.focus(); } });
   app.whenReady().then(async () => {
-    app.setName('HorosHub');
+    app.setName('HorosHub - GithubOrganizer');
     if (process.platform === 'win32') app.setAppUserModelId('com.horoscode.horoshub');
     try { await ensureBackend(); }
     catch (e) {
-      dialog.showErrorBox('HorosHub — Backend-Fehler', String(e.message || e));
+      dialog.showErrorBox('HorosHub - GithubOrganizer — Backend-Fehler', String(e.message || e));
     }
     buildMenu();
     createWindow();

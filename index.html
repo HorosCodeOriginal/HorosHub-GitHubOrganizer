@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="color-scheme" content="dark light">
-<title>HorosHub — HorosCodeOriginal</title>
+<title>HorosHub - GithubOrganizer</title>
 <link id="favicon" rel="icon" type="image/svg+xml">
 <style>
 :root{
@@ -431,7 +431,7 @@ input[type="checkbox"]{accent-color:var(--accent-strong);width:15px;height:15px;
   <aside class="sidebar" id="sidebar">
     <div class="brand">
       <span class="brand-mark"><svg class="ic" aria-hidden="true"><use href="#i-horos"></use></svg></span>
-      <div><strong>HorosHub</strong><span>HorosCode · GitHub-Zentrale</span></div>
+      <div><strong>HorosHub</strong><span>GithubOrganizer</span></div>
     </div>
     <nav class="nav">
       <div class="nav-label">Übersicht</div>
@@ -741,7 +741,7 @@ input[type="checkbox"]{accent-color:var(--accent-strong);width:15px;height:15px;
           <div class="setting-row"><div><b>Animationen reduzieren</b><div class="hint">Für empfindliche Augen</div></div><label class="switch"><input type="checkbox"><span></span></label></div>
         </div></div>
       </div>
-      <div class="card" style="margin-top:16px"><div class="card-head"><h3>Marke &amp; Logo</h3><span class="hint">HorosHub · für HorosCode</span></div>
+      <div class="card" style="margin-top:16px"><div class="card-head"><h3>Marke &amp; Logo</h3><span class="hint">HorosHub - GithubOrganizer</span></div>
         <div class="brand-kit">
           <div class="bk-preview" id="bkPreview"></div>
           <div class="bk-side">
@@ -771,7 +771,7 @@ input[type="checkbox"]{accent-color:var(--accent-strong);width:15px;height:15px;
   <div class="palette" role="dialog" aria-label="Befehlspalette">
     <div class="palette-input"><svg class="ic"><use href="#i-search"></use></svg><input id="paletteInput" placeholder="Springen zu … oder Aktion suchen" autocomplete="off"><kbd>Esc</kbd></div>
     <div class="palette-results" id="paletteResults"></div>
-    <div class="palette-foot"><span><kbd>↑</kbd><kbd>↓</kbd> Navigieren</span><span><kbd>Enter</kbd> Öffnen</span><span style="margin-left:auto">HorosHub</span></div>
+    <div class="palette-foot"><span><kbd>↑</kbd><kbd>↓</kbd> Navigieren</span><span><kbd>Enter</kbd> Öffnen</span><span style="margin-left:auto">HorosHub - GithubOrganizer</span></div>
   </div>
 </div>
 <div class="palette-overlay" id="confirmOverlay">
@@ -902,7 +902,7 @@ function mapLive(raw){
   return {user, repos, events, starred, followers:people(raw.followers), following:people(raw.following), orgs:(Array.isArray(raw.orgs) ? raw.orgs : []).map(o => ({login:o.login, avatar:o.avatar_url, url:'https://github.com/' + o.login, desc:o.description || ''})), gists:(Array.isArray(raw.gists) ? raw.gists : []).map(g => ({id:g.id, desc:g.description || '', files:Object.keys(g.files || {}).length, pub:g.public, created:g.created_at, url:g.html_url})), stats:computeStats(repos, events, starred), source:'live', fetchedAt:new Date().toISOString(), rate:raw.rate};
 }
 async function ghGet(path, raw){
-  const headers = {'User-Agent':'HorosHub', 'Accept':'application/vnd.github+json'};
+  const headers = {'User-Agent':'HorosHub-GithubOrganizer', 'Accept':'application/vnd.github+json'};
   if(!BACKEND && token) headers['Authorization'] = 'Bearer ' + token;
   const r = await fetch(ghURL(path), {headers});
   if(raw) return r;
@@ -956,7 +956,7 @@ function showView(id){
 /* ---------- Render: Kopfbereich ---------- */
 function renderChrome(){
   const u = S.user;
-  document.title = 'HorosHub' + (u.login ? ' — ' + u.login : ' — GitHub-Kommandozentrale');
+  document.title = 'HorosHub - GithubOrganizer' + (u.login ? ' — ' + u.login : '');
   $('#crumbRoot').textContent = u.login;
   $('#topName').textContent = u.name; $('#topLogin').textContent = '@' + u.login;
   $('#topAvatar').outerHTML = avatarHTML(u.avatar, u.name, '').replace('class="avatar ', 'id="topAvatar" class="avatar ');
@@ -1180,7 +1180,7 @@ async function loadReadme(full){
   if(btn){ btn.disabled = true; btn.style.opacity = .6; }
   body.innerHTML = `<div class="empty">${ICON('refresh', 'spin')}<b>Lade README …</b></div>`;
   try {
-    const headers = {'User-Agent':'HorosHub', 'Accept':'application/vnd.github.raw+json'};
+    const headers = {'User-Agent':'HorosHub-GithubOrganizer', 'Accept':'application/vnd.github.raw+json'};
     if(!BACKEND && token) headers['Authorization'] = 'Bearer ' + token;
     const r = await fetch(ghURL('/repos/' + full + '/readme'), {headers});
     if(!r.ok) throw new Error(r.status === 404 ? 'Kein README vorhanden' : 'HTTP ' + r.status);
@@ -1391,7 +1391,7 @@ function paletteData(){
     {label:'Neues Repository erstellen', sub:'Aktion', icon:'plus', view:'create'},
     {label:'Alle Benachrichtigungen als gelesen', sub:'Aktion', icon:'check', action:'read'},
     {label:'Farbschema wechseln', sub:'Aktion', icon:'sun', action:'theme'},
-    {label:'Logo & Marke (HorosHub)', sub:'Navigation', icon:'horos', view:'settings'}
+    {label:'Logo & Marke (HorosHub - GithubOrganizer)', sub:'Navigation', icon:'horos', view:'settings'}
   ]);
 }
 function renderPalette(){
@@ -1522,7 +1522,7 @@ function logoSVG(variant, size){
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="${size}" height="${size}"><defs>${defs}</defs>${bg}${glow}<path d="M17.5 26a6.5 6.5 0 0 1 13 0Z" fill="${sun}" stroke="none"/><path d="M14 26h20" stroke="${horizon}" stroke-width="2.2" stroke-linecap="round" fill="none"/><path d="M14 10v28M34 10v28" stroke="${ink}" stroke-width="3.2" stroke-linecap="round" fill="none"/><g fill="${ink}" stroke="none"><circle cx="14" cy="10" r="3.4"/><circle cx="14" cy="38" r="3.4"/><circle cx="34" cy="10" r="3.4"/><circle cx="34" cy="38" r="3.4"/></g><g fill="${inner}" stroke="none"><circle cx="14" cy="10" r="1.4"/><circle cx="14" cy="38" r="1.4"/><circle cx="34" cy="10" r="1.4"/><circle cx="34" cy="38" r="1.4"/></g></svg>`;
 }
 function renderBrandPreview(){
-  $('#bkPreview').innerHTML = `<div class="bk-mark">${logoSVG(bkVariant, 116)}</div><div class="bk-lock"><strong>HorosHub</strong><span>HorosCode · GitHub-Zentrale</span></div>`;
+  $('#bkPreview').innerHTML = `<div class="bk-mark">${logoSVG(bkVariant, 116)}</div><div class="bk-lock"><strong>HorosHub</strong><span>GithubOrganizer</span></div>`;
 }
 function downloadBlob(name, blob){
   const a = document.createElement('a');
@@ -1781,7 +1781,7 @@ async function realUpload(){
   const name = slugify($('#upName').value || 'mein-projekt'), priv = $('#upVis').value === 'private';
   const btn = $('#uploadStart'); btn.disabled = true; btn.style.opacity = .6;
   $('#uploadProgressWrap').style.display = ''; $('#uploadBar').style.width = '2%';
-  const r = await fetch('/api/upload', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({name, private: priv, desc: 'Hochgeladen via HorosHub', files: pickedFiles.map(f => ({path:f.path, b64:f.b64}))})});
+  const r = await fetch('/api/upload', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({name, private: priv, desc: 'Hochgeladen via HorosHub - GithubOrganizer', files: pickedFiles.map(f => ({path:f.path, b64:f.b64}))})});
   const j = await r.json();
   if(j.error){ toast(j.error, 'warn'); btn.disabled = false; btn.style.opacity = 1; $('#uploadProgressWrap').style.display = 'none'; return; }
   toast('Upload-Job gestartet – Repo wird erstellt & gepusht');
@@ -2110,7 +2110,7 @@ if(DESKTOP){
 <div class="onboard" id="onboardOverlay" aria-hidden="true">
   <div class="onboard-bg"></div>
   <div class="onboard-card" role="dialog" aria-modal="true" aria-labelledby="obTitle">
-    <div class="ob-brand"><span class="ob-mark" id="obMark"></span><div><b>HorosHub</b><span>GitHub-Kommandozentrale</span></div></div>
+    <div class="ob-brand"><span class="ob-mark" id="obMark"></span><div><b>HorosHub - GithubOrganizer</b><span>GitHub-Kommandozentrale</span></div></div>
     <h1 id="obTitle">Willkommen — verbinde dein GitHub-Konto</h1>
     <p class="ob-sub">Deine Repositories, Sterne, Aktivität, Issues, Actions und Backups — alles lokal auf deinem PC. Du nutzt deinen eigenen GitHub-Zugang; es gibt kein separates HorosHub-Konto.</p>
     <div class="ob-tabs" role="tablist">
