@@ -85,7 +85,7 @@ dein Token bleiben **auf deinem PC**.
 
 ## Installation (für Nutzer)
 
-1. Lade **`HorosHub-GithubOrganizer-Setup-1.0.0.exe`** aus den [GitHub Releases](https://github.com/HorosCodeOriginal/horoshub/releases/latest) herunter (alternativ aus dem `release/`-Ordner dieses Repos).
+1. Lade **`HorosHub-GithubOrganizer-Setup-1.0.0.exe`** aus den [GitHub Releases](https://github.com/HorosCodeOriginal/HorosHub-GitHubOrganizer/releases/latest) herunter (alternativ aus dem `release/`-Ordner dieses Repos).
 2. Doppelklick → Installations-Assistent (pro Benutzer, Zielordner wählbar).
 3. Starte **HorosHub - GithubOrganizer** über die Desktop- oder Startmenü-Verknüpfung.
 4. Verbinde im Onboarding dein GitHub-Konto:

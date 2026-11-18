@@ -85,7 +85,7 @@ stay **on your PC**.
 
 ## Installation (for users)
 
-1. Download **`HorosHub-GithubOrganizer-Setup-1.0.0.exe`** from the [GitHub Releases](https://github.com/HorosCodeOriginal/horoshub/releases/latest) (alternatively from this repo's `release/` folder).
+1. Download **`HorosHub-GithubOrganizer-Setup-1.0.0.exe`** from the [GitHub Releases](https://github.com/HorosCodeOriginal/HorosHub-GitHubOrganizer/releases/latest) (alternatively from this repo's `release/` folder).
 2. Double-click → install wizard (per-user, target folder selectable).
 3. Launch **HorosHub - GithubOrganizer** from the desktop or start-menu shortcut.
 4. Connect your GitHub account in the onboarding:
