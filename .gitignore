@@ -1,0 +1,23 @@
+# Dependencies
+node_modules/
+
+# Runtime (Token, Config, State) — NIEMALS committen
+.horoshub/
+
+# Build-Zwischenprodukte (der fertige Installer release/*.exe bleibt tracked)
+release/win-unpacked/
+release/*.7z
+release/*.blockmap
+release/__uninstaller*
+release/builder-debug.yml
+
+# Test-/Log-Artefakte
+build/test-runtime/
+build/test-install/
+build/*.log
+*.log
+
+# System
+.DS_Store
+Thumbs.db
+desktop.ini

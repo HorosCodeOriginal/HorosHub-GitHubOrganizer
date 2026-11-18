@@ -1,0 +1,62 @@
+{
+  "name": "horoshub",
+  "productName": "HorosHub",
+  "version": "1.0.0",
+  "description": "HorosHub — GitHub-Kommandozentrale (Desktop, mandantenfähig)",
+  "main": "desktop/main.js",
+  "scripts": {
+    "start": "electron .",
+    "desktop": "electron .",
+    "server": "node server.js",
+    "dist": "electron-builder --win nsis",
+    "dist:dir": "electron-builder --win --dir"
+  },
+  "author": "HorosCode",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^33.2.0",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "com.horoscode.horoshub",
+    "productName": "HorosHub",
+    "copyright": "Copyright © 2026 HorosCode",
+    "asar": false,
+    "npmRebuild": false,
+    "publish": null,
+    "directories": {
+      "output": "release",
+      "buildResources": "build"
+    },
+    "files": [
+      "index.html",
+      "server.js",
+      "github-data.js",
+      "desktop/**/*",
+      "build/icon.ico",
+      "package.json"
+    ],
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "icon": "build/icon.ico",
+      "artifactName": "HorosHub-Setup-${version}.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowElevation": true,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "HorosHub",
+      "installerIcon": "build/icon.ico",
+      "uninstallerIcon": "build/icon.ico",
+      "installerHeaderIcon": "build/icon.ico",
+      "deleteAppDataOnUninstall": false,
+      "menuCategory": true,
+      "runAfterFinish": true
+    }
+  }
+}
