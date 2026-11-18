@@ -17,6 +17,10 @@
 </p>
 
 <p align="center">
+  <a href="README.md"><b>Deutsch</b></a> · <a href="README.en.md">English</a>
+</p>
+
+<p align="center">
   <img src="screenshots/01-dashboard.png" alt="HorosHub Dashboard" width="100%" />
 </p>
 
@@ -175,7 +179,7 @@ release/            Fertiger Windows-Installer (NSIS)
 ├── build/ (icon.ico, icon.png, icon-512.png, make-icons.js, make-shortcuts.ps1, capture-screens.js, …)
 ├── screenshots/ (01–07)
 ├── release/HorosHub-Setup-1.0.0.exe
-├── README.md · LICENSE · .gitignore
+├── README.md (DE) · README.en.md (EN) · LICENSE · .gitignore
 ```
 
 ## Git LFS (optional, für die große EXE)
